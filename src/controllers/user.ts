@@ -13,6 +13,19 @@ export const getUsers = async (
   res.json(users);
 };
 
+export const getUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = await User.findOne({ where: { id: req.params.id } });
+
+  if (user === null) {
+    const error = new Error("User does not exist");
+    res.status(400).json({ error: error.message });
+  }
+};
+
 export const createUser = async (
   req: Request,
   res: Response,

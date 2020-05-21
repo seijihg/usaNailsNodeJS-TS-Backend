@@ -1,10 +1,12 @@
 import express from "express";
-import { getUsers, createUser } from "../controllers/user";
+import { getUsers, createUser, getUser } from "../controllers/user";
 import { check } from "express-validator";
+import isLoggedIn from "../middleware/isLoggedIn";
 
 const router = express.Router();
 
-router.get("/users", getUsers);
+router.get("/users", isLoggedIn, getUsers);
+router.get("/user/:id", getUser);
 router.post(
   "/user",
   [

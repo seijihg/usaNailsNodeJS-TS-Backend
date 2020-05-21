@@ -1,9 +1,9 @@
 import express from "express";
 import { check } from "express-validator";
-import { createComment } from "../controllers/comment";
+import { getAllPosts } from "../controllers/post";
 
 const router = express.Router();
 
-router.post("/comment", [check("content").escape()], createComment);
+router.get("/posts", [check("content").escape()], getAllPosts);
 
 export default router;

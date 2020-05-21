@@ -30,4 +30,4 @@ console.log("Post: ", Post === sequelize.models.Post); // true
 
 sequelize.models.Post.hasMany(Comment);
 
-export default sequelize.models.Comment;
+export default sequelize.models.Post;
