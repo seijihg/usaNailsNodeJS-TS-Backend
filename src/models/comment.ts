@@ -1,5 +1,6 @@
 import { DataTypes, Model, BuildOptions } from "sequelize";
 import { sequelize } from "../utils/database";
+import User from "./user";
 
 interface ICommentModel extends Model {
   content: string;
@@ -27,5 +28,7 @@ const Comment = <CommentModelStatic>sequelize.define(
 
 // `sequelize.define` also returns the model
 console.log("Comment: ", Comment === sequelize.models.Comment); // true
+
+sequelize.models.Comment.belongsTo(User);
 
 export default sequelize.models.Comment;

@@ -5,8 +5,8 @@ import isLoggedIn from "../middleware/isLoggedIn";
 
 const router = express.Router();
 
-router.get("/users", isLoggedIn, getUsers);
-router.get("/user/:id", getUser);
+router.get("/users", getUsers);
+router.get("/user/:id", isLoggedIn, getUser);
 router.post(
   "/user",
   [

@@ -37,6 +37,4 @@ const User = sequelize.define(
 // `sequelize.define` also returns the model
 console.log("User: ", User === sequelize.models.User); // true
 
-sequelize.models.User.hasMany(Comment);
-
 export default sequelize.models.User;

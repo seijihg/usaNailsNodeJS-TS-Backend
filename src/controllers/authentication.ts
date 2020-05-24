@@ -15,8 +15,6 @@ export const loginUser = async (
       user.password
     );
 
-    console.log(process.env.JWT_SECRET);
-
     if (user === null) {
       const err = new Error("User does not exist.");
       throw err;
@@ -28,7 +26,7 @@ export const loginUser = async (
           email: user.email,
         },
         process.env.JWT_SECRET as string,
-        { expiresIn: "1h" }
+        { expiresIn: "7d" }
       );
       res.json({ user: user, token: token });
     } else {

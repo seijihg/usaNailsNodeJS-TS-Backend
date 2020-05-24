@@ -24,6 +24,7 @@ export const getUser = async (
     const error = new Error("User does not exist");
     res.status(400).json({ error: error.message });
   }
+  res.json(user);
 };
 
 export const createUser = async (
