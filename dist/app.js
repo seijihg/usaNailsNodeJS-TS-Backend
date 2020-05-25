@@ -15,6 +15,14 @@ const app = express_1.default();
 const port = 8080;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+//-- CORS
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
+//--
 app.use("/api_v1", user_1.default);
 app.use("/api_v1", comment_1.default);
 app.use("/api_v1", post_1.default);

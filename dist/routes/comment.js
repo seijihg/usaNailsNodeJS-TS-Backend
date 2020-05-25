@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_validator_1 = require("express-validator");
 const comment_1 = require("../controllers/comment");
+const isLoggedIn_1 = __importDefault(require("../middleware/isLoggedIn"));
 const router = express_1.default.Router();
-router.post("/comment", [express_validator_1.check("content").escape()], comment_1.createComment);
+router.post("/comment", isLoggedIn_1.default, [express_validator_1.check("content").escape()], comment_1.createComment);
 exports.default = router;

@@ -20,7 +20,6 @@ exports.loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     try {
         const user = yield user_1.default.findOne({ where: { email: req.body.email } });
         const isPassCorrect = yield bcryptjs_1.default.compare(req.body.password, user.password);
-        console.log(process.env.JWT_SECRET);
         if (user === null) {
             const err = new Error("User does not exist.");
             throw err;
@@ -29,7 +28,7 @@ exports.loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             const token = jsonwebtoken_1.default.sign({
                 userId: user.id,
                 email: user.email,
-            }, process.env.JWT_SECRET, { expiresIn: "1h" });
+            }, process.env.JWT_SECRET, { expiresIn: "7d" });
             res.json({ user: user, token: token });
         }
         else {

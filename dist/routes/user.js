@@ -8,8 +8,8 @@ const user_1 = require("../controllers/user");
 const express_validator_1 = require("express-validator");
 const isLoggedIn_1 = __importDefault(require("../middleware/isLoggedIn"));
 const router = express_1.default.Router();
-router.get("/users", isLoggedIn_1.default, user_1.getUsers);
-router.get("/user/:id", user_1.getUser);
+router.get("/users", user_1.getUsers);
+router.get("/user/:id", isLoggedIn_1.default, user_1.getUser);
 router.post("/user", [
     // username must be an email
     express_validator_1.check("email")

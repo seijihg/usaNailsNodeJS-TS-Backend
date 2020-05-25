@@ -16,10 +16,13 @@ exports.createComment = void 0;
 const post_1 = __importDefault(require("../models/post"));
 exports.createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // Search DB and see if post already exists. Create one if does not.
+        // "created" The boolean indicating whether this instance was just created
         const [post, created] = yield post_1.default.findOrCreate({
             where: { id_post: req.body.id_post },
         });
-        post.createComment({ content: req.body.content, UserId: 1 });
+        // Create comment after creating the post.
+        post.createComment({ content: req.body.content, UserId: req.userId });
         res.json(post);
     }
     catch (err) {

@@ -27,6 +27,7 @@ exports.getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         const error = new Error("User does not exist");
         res.status(400).json({ error: error.message });
     }
+    res.json(user);
 });
 exports.createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = bcryptjs_1.default.genSaltSync(10);
