@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../utils/database";
-import Comment from "./comment";
 
 const User = sequelize.define(
   "User",
@@ -27,6 +26,11 @@ const User = sequelize.define(
     },
     dob: {
       type: DataTypes.DATE,
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
     },
   },
   {

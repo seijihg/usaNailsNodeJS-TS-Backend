@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import { sequelize } from "./utils/database";
@@ -7,7 +9,6 @@ import commentRouter from "./routes/comment";
 import postRouter from "./routes/post";
 import authenticationRouter from "./routes/authentication";
 
-dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 

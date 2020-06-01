@@ -1,14 +1,16 @@
 import express from "express";
-import { getUsers, createUser, getUser } from "../controllers/user";
+import { getUsers, createUser, getUser, getMe } from "../controllers/user";
 import { check } from "express-validator";
 import isLoggedIn from "../middleware/isLoggedIn";
 
 const router = express.Router();
 
 router.get("/users", getUsers);
+router.get("/user/get-me/", isLoggedIn, getMe);
 router.get("/user/:id", isLoggedIn, getUser);
+
 router.post(
-  "/user",
+  "/signup",
   [
     // username must be an email
     check("email")
