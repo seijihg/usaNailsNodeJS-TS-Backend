@@ -12,7 +12,7 @@ type PostModelStatic = typeof Model & {
 };
 
 const Post = <PostModelStatic>sequelize.define(
-  "Post",
+  "post",
   {
     // Model attributes are defined here
     id_post: {
@@ -26,8 +26,9 @@ const Post = <PostModelStatic>sequelize.define(
 );
 
 // `sequelize.define` also returns the model
-console.log("Post: ", Post === sequelize.models.Post); // true
+console.log("Post: ", Post === sequelize.models.post); // true
 
-sequelize.models.Post.hasMany(Comment);
+sequelize.models.post.hasMany(Comment);
+sequelize.models.comment.belongsTo(Post);
 
-export default sequelize.models.Post;
+export default sequelize.models.post;

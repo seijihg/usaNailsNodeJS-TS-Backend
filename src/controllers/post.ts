@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { validationResult } from "express-validator";
 import Post from "../models/post";
 import Comment from "../models/comment";
 import User from "../models/user";

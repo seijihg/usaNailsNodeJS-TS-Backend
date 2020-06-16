@@ -1,8 +1,24 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model, BuildOptions } from "sequelize";
 import { sequelize } from "../utils/database";
+import Comment from "./comment";
 
-const User = sequelize.define(
-  "User",
+interface IUserModel extends Model {
+  email: string;
+  password: string;
+  title: string;
+  firstName: string;
+  lastName: string;
+  dob: Date;
+  admin: boolean;
+}
+
+// Need to declare the static model so `findOne` etc. use correct types.
+type UserModelStatic = typeof Model & {
+  new (values?: object, options?: BuildOptions): IUserModel;
+};
+
+const User = <UserModelStatic>sequelize.define(
+  "user",
   {
     // Model attributes are defined here
     email: {
@@ -22,10 +38,14 @@ const User = sequelize.define(
     },
     lastName: {
       type: DataTypes.STRING,
-      // allowNull defaults to true
     },
     dob: {
       type: DataTypes.DATE,
+    },
+    confirmed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
     },
     admin: {
       type: DataTypes.BOOLEAN,
@@ -39,6 +59,9 @@ const User = sequelize.define(
 );
 
 // `sequelize.define` also returns the model
-console.log("User: ", User === sequelize.models.User); // true
+console.log("User: ", User === sequelize.models.user); // true
 
-export default sequelize.models.User;
+sequelize.models.user.hasMany(Comment);
+sequelize.models.comment.belongsTo(User);
+
+export default sequelize.models.user;

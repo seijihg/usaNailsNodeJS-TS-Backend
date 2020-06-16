@@ -13,9 +13,8 @@ export const createComment = async (
     const [post, created] = await Post.findOrCreate({
       where: { id_post: req.body.id_post },
     });
-
     // Create comment after creating the post.
-    post.createComment({ content: req.body.content, UserId: req.userId });
+    post.createComment({ content: req.body.content, userId: req.userId });
     res.json(post);
   } catch (err) {
     res.status(400).json(err.errors);

@@ -12,9 +12,6 @@ import authenticationRouter from "./routes/authentication";
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 //-- CORS
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,6 +24,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 //--
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api_v1", userRouter);
 app.use("/api_v1", commentRouter);
 app.use("/api_v1", postRouter);
@@ -36,12 +36,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Connection has been established successfully.");
-    sequelize
-      .sync({ force: false })
-      .then((res) => {
-        app.listen(port);
-      })
-      .catch(console.log);
+    app.listen(port);
   })
   .catch(() => {
     console.error("Unable to connect to the database:");
