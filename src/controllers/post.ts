@@ -24,18 +24,18 @@ export const getPost = async (
   res: Response,
   next: NextFunction
 ) => {
-  const wpId = req.params.id;
+  const slug = req.params.slug;
 
   try {
     const post = await Post.findOne({
-      where: { id_post: wpId },
+      where: { id_post: slug },
       include: [
         {
           model: Comment,
           include: [
             {
               model: User,
-              attributes: ["id", "firstName", "lastName"],
+              attributes: ["id", "firstName", "lastName", "email"],
             },
           ],
         },
