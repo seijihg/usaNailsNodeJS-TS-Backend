@@ -8,12 +8,10 @@ import userRouter from "./routes/user";
 import commentRouter from "./routes/comment";
 import postRouter from "./routes/post";
 import authenticationRouter from "./routes/authentication";
+import uploadRouter from "./routes/upload";
 
 const app = express();
 const port = process.env.PORT || 8080;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 //-- CORS
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -27,21 +25,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 //--
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api_v1", userRouter);
 app.use("/api_v1", commentRouter);
 app.use("/api_v1", postRouter);
 app.use("/api_v1", authenticationRouter);
+app.use("/api_v1", uploadRouter);
 
 sequelize
   .authenticate()
   .then(() => {
     console.log("Connection has been established successfully.");
-    sequelize
-      .sync({ force: false })
-      .then((res) => {
-        app.listen(port);
-      })
-      .catch(console.log);
+    app.listen(port);
   })
   .catch(() => {
     console.error("Unable to connect to the database:");

@@ -1,5 +1,11 @@
 import express from "express";
-import { getUsers, createUser, getUser, getMe } from "../controllers/user";
+import {
+  getUsers,
+  createUser,
+  getUser,
+  getMe,
+  updateUser,
+} from "../controllers/user";
 import { check } from "express-validator";
 import isLoggedIn from "../middleware/isLoggedIn";
 
@@ -27,5 +33,7 @@ router.post(
   ],
   createUser
 );
+
+router.put("/user/:id", isLoggedIn, updateUser);
 
 export default router;

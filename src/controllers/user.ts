@@ -4,13 +4,18 @@ import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import Comment from "../models/comment";
 import jwt from "jsonwebtoken";
+import { transporter } from "../utils/emailTransporter";
+import { userRegisteredEmail } from "../utils/emailTemplates";
 
 export const getUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const users = await User.findAll({ include: Comment });
+  const users = await User.findAll({ include: Comment }).catch((err: any) =>
+    res.status(400).json({ error: err.message })
+  );
+
   res.json(users);
 };
 
@@ -72,10 +77,36 @@ export const createUser = async (
       { expiresIn: "7d" }
     );
 
+    let info = await transporter.sendMail({
+      from: '"USA Nails - Berkhamsted" <no-reply@usa-nails.co.uk>', // sender address
+      to: user.email, // list of receivers
+      subject: "Welcome to USA Nails - Berkhamsted est 2007", // Subject line
+      text: `Welcome to USA Nails Berkhamsted est 2007. You are now our member and will be first to know about our latest styles,
+      exclusive offers, and much more.`,
+      html: userRegisteredEmail, // html body
+    });
+    console.log("Message sent: %s", info.messageId);
+
     res.json({ user: user, token: token });
   } catch (err) {
     const errors: string[] = [];
     err.errors.forEach((elem: any) => errors.push(elem.message));
     res.status(400).send({ errors: errors });
   }
+};
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = await User.findByPk(req.params.id);
+
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.title = req.body.title.value;
+  user.dob = req.body.dob;
+  user.save();
+
+  res.json("hit");
 };

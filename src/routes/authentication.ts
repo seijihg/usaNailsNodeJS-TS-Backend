@@ -4,7 +4,7 @@ import { check } from "express-validator";
 
 const router = express.Router();
 
-router.get(
+router.post(
   "/login",
   [
     // username must be an email

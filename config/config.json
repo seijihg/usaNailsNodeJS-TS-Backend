@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "lhngo",
+    "password": "usanails",
+    "database": "usanails_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
