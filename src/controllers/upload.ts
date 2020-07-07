@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { Fields } from "formidable";
 import cloudinary from "cloudinary";
 const formidable = require("formidable");
+import User from "../models/user";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -14,7 +15,6 @@ export const uploadAvatar = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.body);
   const form = formidable({ multiples: false });
 
   form.parse(req, (err: Error, fields: Fields, files: any) => {
@@ -22,25 +22,30 @@ export const uploadAvatar = async (
       next(err);
       return;
     }
-    const fileName = fields?.name as string;
-    const filePath = files[""].path;
+    const fileName = `usanails/avatar/${fields?.name}` as string;
+    const filePath = files.file.path;
+    console.log(fileName);
 
     cloudinary.v2.uploader.destroy(fileName, (error: any, result: any) => {
-      console.log(error, result);
-
       if (error) {
         res.status(408).json(error);
         return;
       }
+      cloudinary.v2.uploader.upload(
+        filePath,
+        { folder: "usanails/avatar" },
+        async (error: any, result: any) => {
+          const user = await User.findByPk(fields.userId);
 
-      cloudinary.v2.uploader.upload(filePath, (error: any, result: any) => {
-        console.log(error, result);
-        if (error) {
-          res.status(408).json(error);
-          return;
+          if (error || user === null) {
+            res.status(408).json("Error uploading or user not found");
+            return;
+          }
+          user.avatar = result.url;
+          user.save();
+          res.json(user);
         }
-        res.json(result);
-      });
+      );
     });
   });
 };

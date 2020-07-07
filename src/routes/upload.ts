@@ -4,6 +4,6 @@ import isLoggedIn from "../middleware/isLoggedIn";
 
 const router = express.Router();
 
-router.post("/upload/avatar", uploadAvatar);
+router.post("/upload/avatar", isLoggedIn, uploadAvatar);
 
 export default router;

@@ -26,6 +26,9 @@ const User = <UserModelStatic>sequelize.define(
       allowNull: false,
       unique: true,
     },
+    avatar: {
+      type: DataTypes.STRING,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
