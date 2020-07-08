@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const authentication_1 = require("../controllers/authentication");
 const express_validator_1 = require("express-validator");
 const router = express_1.default.Router();
-router.get("/login", [
+router.post("/login", [
     // username must be an email
     express_validator_1.check("email")
         .normalizeEmail({ gmail_convert_googlemaildotcom: true })

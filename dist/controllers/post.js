@@ -27,17 +27,17 @@ exports.getAllPosts = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     res.json(posts);
 });
 exports.getPost = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const wpId = req.params.id;
+    const slug = req.params.slug;
     try {
         const post = yield post_1.default.findOne({
-            where: { id_post: wpId },
+            where: { id_post: slug },
             include: [
                 {
                     model: comment_1.default,
                     include: [
                         {
                             model: user_1.default,
-                            attributes: ["id", "firstName", "lastName"],
+                            attributes: ["id", "firstName", "lastName", "email"],
                         },
                     ],
                 },

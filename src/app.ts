@@ -38,9 +38,8 @@ sequelize
   .authenticate()
   .then(() => {
     console.log(
-      `Connection has been established successfully at port: ${
-        process.env.PORT ? process.env.PORT : "8080"
-      }.`
+      `Connection has been established successfully at port: ${port}
+      `
     );
     app.listen(port);
   })
