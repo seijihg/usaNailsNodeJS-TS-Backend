@@ -22,8 +22,9 @@ exports.createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             where: { id_post: req.body.id_post },
         });
         // Create comment after creating the post.
-        post.createComment({ content: req.body.content, UserId: req.userId });
-        res.json(post);
+        post.createComment({ content: req.body.content, userId: req.userId });
+        const comments = yield post.getComments();
+        res.json(comments);
     }
     catch (err) {
         res.status(400).json(err.errors);

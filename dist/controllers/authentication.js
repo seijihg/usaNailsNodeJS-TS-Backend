@@ -37,6 +37,6 @@ exports.loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         }
     }
     catch (err) {
-        res.status(400).json({ errors: err.message });
+        res.status(400).json({ error: err.message });
     }
 });

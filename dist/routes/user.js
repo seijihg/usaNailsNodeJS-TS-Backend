@@ -9,8 +9,9 @@ const express_validator_1 = require("express-validator");
 const isLoggedIn_1 = __importDefault(require("../middleware/isLoggedIn"));
 const router = express_1.default.Router();
 router.get("/users", user_1.getUsers);
+router.get("/user/get-me/", isLoggedIn_1.default, user_1.getMe);
 router.get("/user/:id", isLoggedIn_1.default, user_1.getUser);
-router.post("/user", [
+router.post("/signup", [
     // username must be an email
     express_validator_1.check("email")
         .normalizeEmail({ gmail_convert_googlemaildotcom: true })
@@ -24,4 +25,5 @@ router.post("/user", [
         .matches(/(?=.*[!@#$%^&*])(?=.*\d)/)
         .withMessage("Must contain a number and at least one special character"),
 ], user_1.createUser);
+router.put("/user/:id", isLoggedIn_1.default, user_1.updateUser);
 exports.default = router;
