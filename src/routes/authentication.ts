@@ -1,5 +1,9 @@
 import express from "express";
-import { loginUser } from "../controllers/authentication";
+import {
+  loginUser,
+  resetPassword,
+  changePassword,
+} from "../controllers/authentication";
 import { check } from "express-validator";
 
 const router = express.Router();
@@ -16,5 +20,8 @@ router.post(
   ],
   loginUser
 );
+
+router.post("/reset-password", resetPassword);
+router.post("/change-password", changePassword);
 
 export default router;

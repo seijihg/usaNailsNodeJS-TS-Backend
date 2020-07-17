@@ -15,4 +15,5 @@ router.post("/login", [
         .isEmail()
         .withMessage("Please input an email"),
 ], authentication_1.loginUser);
+router.post("/lost-password", authentication_1.lostPassword);
 exports.default = router;

@@ -62,6 +62,7 @@ export const createUser = async (
   const hash = bcrypt.hashSync(req.body.password, salt);
 
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
@@ -85,6 +86,7 @@ export const createUser = async (
       exclusive offers, and much more.`,
       html: userRegisteredEmail, // html body
     });
+
     console.log("Message sent: %s", info.messageId);
 
     res.json({ user: user, token: token });
