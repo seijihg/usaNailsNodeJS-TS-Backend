@@ -1,4 +1,5 @@
 import Post from "../models/post";
+import Comment from "../models/comment";
 import { Request, Response, NextFunction } from "express";
 
 export const createComment = async (
@@ -20,4 +21,19 @@ export const createComment = async (
   } catch (err) {
     res.status(400).json(err.errors);
   }
+};
+
+export const updateComment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const comment = await Comment.findByPk(req.params.id);
+  if (!comment) {
+    res.status(400).json({ error: "Something is wrong try again later." });
+    return;
+  }
+  comment.content = req.body.content;
+  comment.save().catch((error: any) => console.log(error.message));
+  res.json(comment);
 };
