@@ -28,19 +28,17 @@ export const updateComment = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.userId);
   const comment = await Comment.findByPk(req.params.id);
   if (!comment) {
     res.status(400).json({ error: "Something is wrong try again later." });
     return;
   }
-  console.log(comment.userId);
 
+  // Check if an user can edit the comment.
   if (comment.userId !== req.userId) {
     res.status(400).json({ error: "You can't edit this comment." });
     return;
   }
-  // Compared user to make sure only user who did comment can edit
   comment.content = req.body.content;
   comment.save().catch((error: any) => console.log(error.message));
   res.json(comment);
