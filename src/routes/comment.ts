@@ -6,6 +6,6 @@ import isLoggedIn from "../middleware/isLoggedIn";
 const router = express.Router();
 
 router.post("/comment", isLoggedIn, [check("content").escape()], createComment);
-router.put("/comment/:id", updateComment);
+router.put("/comment/:id", isLoggedIn, updateComment);
 
 export default router;
