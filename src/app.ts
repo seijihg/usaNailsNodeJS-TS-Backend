@@ -34,6 +34,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 //--
 
 // Check mailer.
+console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_PASS);
+console.log(process.env.DB_NAME);
 
 transporter.verify(function (error, success) {
   if (error) {
