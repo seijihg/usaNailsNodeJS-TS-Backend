@@ -11,6 +11,7 @@ import authenticationRouter from "./routes/authentication";
 import uploadRouter from "./routes/upload";
 import contactRouter from "./routes/contact";
 import cors from "cors";
+import { transporter } from "./utils/emailTransporter";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -31,6 +32,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 //--
+
+// Check mailer.
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
