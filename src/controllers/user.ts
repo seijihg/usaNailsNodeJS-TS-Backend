@@ -109,6 +109,4 @@ export const updateUser = async (
   user.title = req.body.title.value;
   user.dob = req.body.dob;
   user.save();
-
-  res.json("hit");
 };
