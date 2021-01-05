@@ -15,11 +15,15 @@ export const contactEmail = async (
         text: `From ${req.body.name} and the email: ${req.body.email}. Message: ${req.body.content}`,
       },
       (err, info) => {
-        console.log(err);
+        if (err) {
+          console.log("HIT");
+          res.status(404).json(err);
+          return;
+        }
         res.json(info);
       }
     );
   } catch (err) {
-    console.log(err);
+    res.status(404).json(err);
   }
 };
