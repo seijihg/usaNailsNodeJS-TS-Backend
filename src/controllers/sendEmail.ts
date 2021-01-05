@@ -22,6 +22,5 @@ export const contactEmail = async (
     subject: `Contact form USA Nails - Sender is ${req.body.name}`, // Subject line
     text: `From ${req.body.name} and the email: ${req.body.email}. Message: ${req.body.content}`
   });
-
   res.json(info);
 };
