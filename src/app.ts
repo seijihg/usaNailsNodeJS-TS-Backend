@@ -10,20 +10,14 @@ import postRouter from "./routes/post";
 import authenticationRouter from "./routes/authentication";
 import uploadRouter from "./routes/upload";
 import contactRouter from "./routes/contact";
+import cors from "cors"
+
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 //-- CORS
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+app.use(cors())
 //--
 
 app.use(express.json());
