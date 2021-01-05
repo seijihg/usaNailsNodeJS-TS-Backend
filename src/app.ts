@@ -9,6 +9,7 @@ import commentRouter from "./routes/comment";
 import postRouter from "./routes/post";
 import authenticationRouter from "./routes/authentication";
 import uploadRouter from "./routes/upload";
+import contactRouter from "./routes/contact";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -33,6 +34,7 @@ app.use("/api_v1", commentRouter);
 app.use("/api_v1", postRouter);
 app.use("/api_v1", authenticationRouter);
 app.use("/api_v1", uploadRouter);
+app.use("/api_v1", contactRouter);
 
 sequelize
   .authenticate()
