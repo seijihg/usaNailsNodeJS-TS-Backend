@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { transporter } from "../utils/emailTransporter";
 
-export const contactEmail = async (
+export const contactEmail = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -15,7 +15,7 @@ export const contactEmail = async (
   //   res.status(400).json({ error: error.message });
   // }
 
-  const info = await transporter.sendMail({
+  transporter.sendMail({
     from: '"USA Nails - Berkhamsted" <no-reply@usa-nails.co.uk>', // sender address
     to: "contact@usa-nails.co.uk", // list of receivers
     subject: `Contact form USA Nails - Sender is ${req.body.name}`, // Subject line
