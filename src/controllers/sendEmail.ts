@@ -16,7 +16,6 @@ export const contactEmail = async (
       },
       (err, info) => {
         if (err) {
-          console.log("HIT");
           res.status(404).json(err);
           return;
         }
