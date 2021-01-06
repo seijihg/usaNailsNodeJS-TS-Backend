@@ -7,7 +7,7 @@ export const contactEmail = async (
   next: NextFunction
 ) => {
   try {
-    let info = await transporter.sendMail(
+    transporter.sendMail(
       {
         from: '"USA Nails - Berkhamsted" <no-reply@usa-nails.co.uk>', // sender address
         to: "contact@usa-nails.co.uk", // list of receivers
@@ -16,13 +16,14 @@ export const contactEmail = async (
       },
       (err, info) => {
         if (err) {
-          res.status(404).json(err);
+          res.status(404).json({ errors: { ...err } });
           return;
         }
         res.json(info);
       }
     );
   } catch (err) {
-    res.status(404).json(err);
+    console.log(err);
+    res.status(404).json({ error: "Something went wrong." });
   }
 };

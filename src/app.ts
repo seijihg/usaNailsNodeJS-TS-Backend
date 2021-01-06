@@ -16,7 +16,7 @@ import { transporter } from "./utils/emailTransporter";
 const app = express();
 const port = process.env.PORT || 8080;
 
-//-- CORS
+//-- CORS.
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
@@ -34,10 +34,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 //--
 
 // Check mailer.
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
-console.log(process.env.DB_NAME);
-
 transporter.verify(function (error, success) {
   if (error) {
     console.log(error);
@@ -45,6 +41,7 @@ transporter.verify(function (error, success) {
     console.log("Server is ready to take our messages");
   }
 });
+//--
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
