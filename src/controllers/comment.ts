@@ -43,3 +43,23 @@ export const updateComment = async (
   comment.save().catch((error: any) => console.log(error.message));
   res.json(comment);
 };
+
+export const deleteComment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const comment = await Comment.findByPk(req.params.id);
+  if (comment.userId !== req.userId) {
+    res.status(400).json({ error: "You can't delete this comment." });
+    return;
+  }
+
+  await Comment.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
+
+  res.json({ message: "Succesfully deleted." });
+};
